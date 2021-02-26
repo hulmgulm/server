@@ -115,7 +115,7 @@ const SpecificDashboardEntry: React.FC<{entry: Dashboards_dashboards_items; rang
                     </Center>
                 );
             }
-            return <DashboardTable mode="vertical" entries={entries} interval={interval} />;
+            return <DashboardTable mode="vertical" entries={entries} interval={interval} total={true} />;
         case EntryType.HorizontalTable:
             if (entries.length === 0) {
                 return (
@@ -124,7 +124,7 @@ const SpecificDashboardEntry: React.FC<{entry: Dashboards_dashboards_items; rang
                     </Center>
                 );
             }
-            return <DashboardTable mode="horizontal" entries={entries} interval={interval} />;
+            return <DashboardTable mode="horizontal" entries={entries} interval={interval} total={true} />;
         default:
             return expectNever(entry.entryType);
     }
