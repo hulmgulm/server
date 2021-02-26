@@ -163,6 +163,26 @@ export const DashboardEntryForm: React.FC<EditPopupProps> = ({entry, onChange: s
                     ))}
                 </Select>
             )}
+            {entry.entryType === EntryType.VerticalTable || entry.entryType === EntryType.HorizontalTable ? (
+                <Typography component="div">
+                    <Grid component="label" container alignItems="center" spacing={1}>
+                        <Grid item>Total: </Grid>
+                        <Grid item>Hide</Grid>
+                        <Grid item>
+                            <Switch
+                                checked={entry.total}
+                                onChange={(e) => {
+                                    entry.total = e.target.checked;
+                                    setEntry(entry);
+                                }}
+                            />
+                        </Grid>
+                        <Grid item>Show</Grid>
+                    </Grid>
+                </Typography>
+            ) : (
+                <Typography component="div"></Typography>
+            )}
             <TagKeySelector
                 value={entry.statsSelection.tags || []}
                 disabled={disabled}
