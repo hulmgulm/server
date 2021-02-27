@@ -39,6 +39,21 @@ export const DashboardEntryForm: React.FC<EditPopupProps> = ({entry, onChange: s
               __typename: 'RelativeOrStaticRange',
           };
 
+    const getTotalTitle = (entryType: EntryType) => {
+        switch (entryType) {
+            case EntryType.HorizontalTable:
+                return 'Show "Total" row:';
+            case EntryType.VerticalTable:
+                return 'Show "Total" column:';
+            case EntryType.BarChart:
+            case EntryType.StackedBarChart:
+            case EntryType.LineChart:
+                return 'Show "Total" in tooltip:';
+            default:
+                return '';
+        }
+    };
+
     return (
         <>
             <TextField
@@ -163,10 +178,10 @@ export const DashboardEntryForm: React.FC<EditPopupProps> = ({entry, onChange: s
                     ))}
                 </Select>
             )}
-            {entry.entryType === EntryType.VerticalTable || entry.entryType === EntryType.HorizontalTable ? (
+            {entry.entryType !== EntryType.PieChart ? (
                 <Typography component="div">
                     <Grid component="label" container alignItems="center" spacing={1}>
-                        <Grid item>Show "Total" column:</Grid>
+                        <Grid item>{getTotalTitle(entry.entryType)}</Grid>
                         <Grid item>
                             <Switch
                                 checked={entry.total}
@@ -179,7 +194,7 @@ export const DashboardEntryForm: React.FC<EditPopupProps> = ({entry, onChange: s
                     </Grid>
                 </Typography>
             ) : (
-                <Typography component="div"></Typography>
+                undefined
             )}
             <TagKeySelector
                 value={entry.statsSelection.tags || []}
