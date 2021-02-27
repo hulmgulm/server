@@ -166,8 +166,7 @@ export const DashboardEntryForm: React.FC<EditPopupProps> = ({entry, onChange: s
             {entry.entryType === EntryType.VerticalTable || entry.entryType === EntryType.HorizontalTable ? (
                 <Typography component="div">
                     <Grid component="label" container alignItems="center" spacing={1}>
-                        <Grid item>Total: </Grid>
-                        <Grid item>Hide</Grid>
+                        <Grid item>Show "Total" column:</Grid>
                         <Grid item>
                             <Switch
                                 checked={entry.total}
@@ -177,7 +176,6 @@ export const DashboardEntryForm: React.FC<EditPopupProps> = ({entry, onChange: s
                                 }}
                             />
                         </Grid>
-                        <Grid item>Show</Grid>
                     </Grid>
                 </Typography>
             ) : (

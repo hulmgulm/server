@@ -32,7 +32,9 @@ func (r *ResolverForEntry) UpdateDashboardEntry(ctx context.Context, id int, ent
 		entry.Title = *title
 	}
 
-	entry.Total = *total
+	if total != nil {
+		entry.Total = *total
+	}
 
 	if stats != nil {
 		if stats.RangeID != nil {
