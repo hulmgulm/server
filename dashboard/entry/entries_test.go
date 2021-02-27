@@ -36,7 +36,7 @@ func TestEntries(t *testing.T) {
 	}
 	require.Equal(t, expectAdded, dashboard)
 
-	_, err = resolver.AddDashboardEntry(user1, 5, gqlmodel.EntryTypeBarChart, "test", true, gqlmodel.InputStatsSelection{
+	_, err = resolver.AddDashboardEntry(user1, 5, gqlmodel.EntryTypeBarChart, "test", false, gqlmodel.InputStatsSelection{
 		Interval:    "",
 		Tags:        []string{"hhol"},
 		ExcludeTags: nil,
@@ -48,7 +48,7 @@ func TestEntries(t *testing.T) {
 		},
 	}, nil)
 	require.EqualError(t, err, "dashboard does not exist")
-	_, err = resolver.AddDashboardEntry(user1, 1, gqlmodel.EntryTypeBarChart, "test", true, gqlmodel.InputStatsSelection{
+	_, err = resolver.AddDashboardEntry(user1, 1, gqlmodel.EntryTypeBarChart, "test", false, gqlmodel.InputStatsSelection{
 		Interval:    gqlmodel.StatsIntervalHourly,
 		Tags:        []string{"hhol"},
 		ExcludeTags: nil,
@@ -60,7 +60,7 @@ func TestEntries(t *testing.T) {
 		},
 	}, nil)
 	require.EqualError(t, err, "dashboard range does not exist")
-	_, err = resolver.AddDashboardEntry(user2, 1, gqlmodel.EntryTypeBarChart, "test", true, gqlmodel.InputStatsSelection{
+	_, err = resolver.AddDashboardEntry(user2, 1, gqlmodel.EntryTypeBarChart, "test", false, gqlmodel.InputStatsSelection{
 		Interval:    "doubly",
 		Tags:        []string{"hhol"},
 		ExcludeTags: nil,
@@ -72,7 +72,7 @@ func TestEntries(t *testing.T) {
 		},
 	}, nil)
 	require.EqualError(t, err, "dashboard does not exist")
-	_, err = resolver.AddDashboardEntry(user1, 1, gqlmodel.EntryTypeBarChart, "test", true, gqlmodel.InputStatsSelection{
+	_, err = resolver.AddDashboardEntry(user1, 1, gqlmodel.EntryTypeBarChart, "test", false, gqlmodel.InputStatsSelection{
 		Interval:    gqlmodel.StatsIntervalDaily,
 		Tags:        []string{"hhol"},
 		ExcludeTags: nil,
@@ -84,7 +84,7 @@ func TestEntries(t *testing.T) {
 		},
 	}, nil)
 	require.EqualError(t, err, "range to (now-2) invalid: expected unit at the end but got nothing")
-	_, err = resolver.AddDashboardEntry(user1, 1, gqlmodel.EntryTypeBarChart, "test", true, gqlmodel.InputStatsSelection{
+	_, err = resolver.AddDashboardEntry(user1, 1, gqlmodel.EntryTypeBarChart, "test", false, gqlmodel.InputStatsSelection{
 		Interval:    gqlmodel.StatsIntervalDaily,
 		Tags:        []string{"hhol"},
 		ExcludeTags: nil,
@@ -96,7 +96,7 @@ func TestEntries(t *testing.T) {
 		},
 	}, nil)
 	require.EqualError(t, err, "range from (now-2) invalid: expected unit at the end but got nothing")
-	_, err = resolver.AddDashboardEntry(user1, 1, gqlmodel.EntryTypeBarChart, "test", true, gqlmodel.InputStatsSelection{
+	_, err = resolver.AddDashboardEntry(user1, 1, gqlmodel.EntryTypeBarChart, "test", false, gqlmodel.InputStatsSelection{
 		Interval:    gqlmodel.StatsIntervalDaily,
 		Tags:        []string{},
 		ExcludeTags: nil,
@@ -109,7 +109,7 @@ func TestEntries(t *testing.T) {
 	}, nil)
 	require.EqualError(t, err, "at least one tag is required")
 
-	entry, err := resolver.AddDashboardEntry(user1, 1, gqlmodel.EntryTypeBarChart, "test", true, gqlmodel.InputStatsSelection{
+	entry, err := resolver.AddDashboardEntry(user1, 1, gqlmodel.EntryTypeBarChart, "test", false, gqlmodel.InputStatsSelection{
 		Interval:    gqlmodel.StatsIntervalDaily,
 		Tags:        []string{"abc"},
 		ExcludeTags: nil,
@@ -129,7 +129,7 @@ func TestEntries(t *testing.T) {
 	expectedEntry := &gqlmodel.DashboardEntry{
 		ID:    1,
 		Title: "test",
-		Total: true,
+		Total: false,
 		StatsSelection: &gqlmodel.StatsSelection{
 			Interval:    gqlmodel.StatsIntervalDaily,
 			Tags:        []string{"abc"},
@@ -175,7 +175,7 @@ func TestEntries(t *testing.T) {
 		},
 	})
 	require.NoError(t, err)
-	_, err = resolver.AddDashboardEntry(user1, 1, gqlmodel.EntryTypeBarChart, "other", true, gqlmodel.InputStatsSelection{
+	_, err = resolver.AddDashboardEntry(user1, 1, gqlmodel.EntryTypeBarChart, "other", false, gqlmodel.InputStatsSelection{
 		Interval: gqlmodel.StatsIntervalDaily,
 		Tags:     []string{"abc"},
 		RangeID:  p(xrange.ID),
@@ -224,7 +224,7 @@ func TestEntries(t *testing.T) {
 		{
 			ID:    1,
 			Title: "test",
-			Total: true,
+			Total: false,
 			StatsSelection: &gqlmodel.StatsSelection{
 				Interval:    gqlmodel.StatsIntervalDaily,
 				Tags:        []string{"abc"},
